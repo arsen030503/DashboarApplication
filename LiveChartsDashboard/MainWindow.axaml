@@ -1,13 +1,13 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:DashboardApp"
         xmlns:charts="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
-        xmlns:liveChartsDashboard="clr-namespace:LiveChartsDashboard"
+        xmlns:local="clr-namespace:DashboardApp"
         x:Class="DashboardApp.MainWindow"
-        Width="800" Height="600" Title="Dashboard">
+        Width="800" Height="600" Title="Dashboard"
+        x:DataType="local:MainWindow">
     <DockPanel>
         <StackPanel Orientation="Vertical">
-            <liveChartsDashboard:CartesianChart Width="400" Height="200" Series="{Binding LineSeries}" />
+            <charts:CartesianChart Width="400" Height="200" Series="{Binding LineSeries}" />
             <charts:PieChart Width="400" Height="200" Series="{Binding PieSeries}" />
         </StackPanel>
     </DockPanel>

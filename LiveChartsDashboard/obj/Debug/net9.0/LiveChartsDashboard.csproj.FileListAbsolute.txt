@@ -1,0 +1,8 @@
+/Users/user/RiderProjects/LiveChartsDashboard/LiveChartsDashboard/obj/Debug/net9.0/LiveChartsDashboard.csproj.AssemblyReference.cache
+/Users/user/RiderProjects/LiveChartsDashboard/LiveChartsDashboard/obj/Debug/net9.0/Avalonia/Resources.Inputs.cache
+/Users/user/RiderProjects/LiveChartsDashboard/LiveChartsDashboard/obj/Debug/net9.0/Avalonia/resources
+/Users/user/RiderProjects/LiveChartsDashboard/LiveChartsDashboard/obj/Debug/net9.0/LiveChartsDashboard.GeneratedMSBuildEditorConfig.editorconfig
+/Users/user/RiderProjects/LiveChartsDashboard/LiveChartsDashboard/obj/Debug/net9.0/LiveChartsDashboard.AssemblyInfoInputs.cache
+/Users/user/RiderProjects/LiveChartsDashboard/LiveChartsDashboard/obj/Debug/net9.0/LiveChartsDashboard.AssemblyInfo.cs
+/Users/user/RiderProjects/LiveChartsDashboard/LiveChartsDashboard/obj/Debug/net9.0/LiveChartsDashboard.csproj.CoreCompileInputs.cache
+/Users/user/RiderProjects/LiveChartsDashboard/LiveChartsDashboard/obj/Debug/net9.0/LiveChartsDashboard.sourcelink.json
