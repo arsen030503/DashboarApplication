@@ -35,8 +35,10 @@
 /Users/user/.nuget/packages/microsoft.data.sqlclient/6.0.2/ref/net9.0/Microsoft.Data.SqlClient.dll
 /Users/user/.nuget/packages/microsoft.entityframeworkcore.abstractions/9.0.4/lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
 /Users/user/.nuget/packages/microsoft.entityframeworkcore/9.0.4/lib/net8.0/Microsoft.EntityFrameworkCore.dll
+/Users/user/.nuget/packages/microsoft.entityframeworkcore.relational/9.0.1/lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
 /Users/user/.nuget/packages/microsoft.extensions.caching.abstractions/9.0.4/lib/net9.0/Microsoft.Extensions.Caching.Abstractions.dll
 /Users/user/.nuget/packages/microsoft.extensions.caching.memory/9.0.4/lib/net9.0/Microsoft.Extensions.Caching.Memory.dll
+/Users/user/.nuget/packages/microsoft.extensions.configuration.abstractions/9.0.1/lib/net9.0/Microsoft.Extensions.Configuration.Abstractions.dll
 /Users/user/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/9.0.4/lib/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
 /Users/user/.nuget/packages/microsoft.extensions.dependencyinjection/9.0.4/lib/net9.0/Microsoft.Extensions.DependencyInjection.dll
 /Users/user/.nuget/packages/microsoft.extensions.logging.abstractions/9.0.4/lib/net9.0/Microsoft.Extensions.Logging.Abstractions.dll
@@ -58,6 +60,8 @@
 /usr/local/share/dotnet/packs/Microsoft.NETCore.App.Ref/9.0.4/ref/net9.0/Microsoft.Win32.Registry.dll
 /usr/local/share/dotnet/packs/Microsoft.NETCore.App.Ref/9.0.4/ref/net9.0/mscorlib.dll
 /usr/local/share/dotnet/packs/Microsoft.NETCore.App.Ref/9.0.4/ref/net9.0/netstandard.dll
+/Users/user/.nuget/packages/npgsql/9.0.3/lib/net8.0/Npgsql.dll
+/Users/user/.nuget/packages/npgsql.entityframeworkcore.postgresql/9.0.4/lib/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
 /Users/user/.nuget/packages/skiasharp/2.88.9/lib/net6.0/SkiaSharp.dll
 /Users/user/.nuget/packages/skiasharp.harfbuzz/2.88.9/lib/net6.0/SkiaSharp.HarfBuzz.dll
 /usr/local/share/dotnet/packs/Microsoft.NETCore.App.Ref/9.0.4/ref/net9.0/System.AppContext.dll

@@ -121,6 +121,7 @@
 /Users/user/RiderProjects/LiveChartsDashboard/LiveChartsDashboard/obj/Debug/net9.0/LiveChar.A58A7265.Up2Date
 /Users/user/RiderProjects/LiveChartsDashboard/LiveChartsDashboard/obj/Debug/net9.0/LiveChartsDashboard.genruntimeconfig.cache
 /Users/user/RiderProjects/LiveChartsDashboard/LiveChartsDashboard/obj/Debug/net9.0/ref/LiveChartsDashboard.dll
-/Users/user/RiderProjects/LiveChartsDashboard/LiveChartsDashboard/obj/Debug/net9.0/LiveChartsDashboard.dll
-/Users/user/RiderProjects/LiveChartsDashboard/LiveChartsDashboard/obj/Debug/net9.0/refint/LiveChartsDashboard.dll
-/Users/user/RiderProjects/LiveChartsDashboard/LiveChartsDashboard/obj/Debug/net9.0/LiveChartsDashboard.pdb
+/Users/user/RiderProjects/LiveChartsDashboard/LiveChartsDashboard/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Relational.dll
+/Users/user/RiderProjects/LiveChartsDashboard/LiveChartsDashboard/bin/Debug/net9.0/Microsoft.Extensions.Configuration.Abstractions.dll
+/Users/user/RiderProjects/LiveChartsDashboard/LiveChartsDashboard/bin/Debug/net9.0/Npgsql.dll
+/Users/user/RiderProjects/LiveChartsDashboard/LiveChartsDashboard/bin/Debug/net9.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll

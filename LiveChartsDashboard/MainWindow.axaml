@@ -1,28 +1,26 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:charts="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
-        xmlns:local="clr-namespace:DashboardApp"
-        xmlns:liveChartsDashboard="clr-namespace:LiveChartsDashboard"
-        x:Class="DashboardApp.MainWindow"
+        xmlns:local="clr-namespace:LiveChartsDashboard"
+        x:Class="LiveChartsDashboard.MainWindow"
         Width="800" Height="600" Title="Dashboard"
-        x:DataType="liveChartsDashboard:MainWindow">
+        x:DataType="local:MainWindow">
+
     <DockPanel>
         <StackPanel Orientation="Vertical" Margin="10">
             <!-- Operating Systems -->
             <StackPanel Orientation="Vertical" Margin="0,10,0,20">
                 <TextBlock Text="Operating Systems"
                            FontWeight="Bold" FontSize="16" Margin="0,0,0,5" />
-                <charts:PieChart Width="300" Height="150" Series="{Binding OperatingSystemsSeries}">
-                </charts:PieChart>
-                <TextBlock Text="Windows - 13h 58m (70.00% , linux 30% 7h 24m)" Margin="0,5,0,0" />
+                <charts:PieChart Width="300" Height="150" Series="{Binding OperatingSystemsSeries}" />
+                <TextBlock Text="Windows - 13h 58m (70.00%, Linux 30% 7h 24m)" Margin="0,5,0,0" />
             </StackPanel>
 
             <!-- Machines -->
             <StackPanel Orientation="Vertical" Margin="0,10,0,20">
                 <TextBlock Text="Machines"
                            FontWeight="Bold" FontSize="16" Margin="0,0,0,5" />
-                <charts:PieChart Width="300" Height="150" Series="{Binding MachineSeries}">
-                </charts:PieChart>
+                <charts:PieChart Width="300" Height="150" Series="{Binding MachineSeries}" />
                 <TextBlock Text="bi-n230719-01 - 13h 58m (100.00%)" Margin="0,5,0,0" />
             </StackPanel>
 
@@ -30,8 +28,7 @@
             <StackPanel Orientation="Vertical" Margin="0,10,0,20">
                 <TextBlock Text="1 hr 4 minutes Today"
                            FontWeight="Bold" FontSize="16" Margin="0,0,0,5" />
-                <charts:PieChart Width="300" Height="150" Series="{Binding DailyActivitySeries}" MaxAngle="180">
-                </charts:PieChart>
+                <charts:PieChart Width="300" Height="150" Series="{Binding DailyActivitySeries}" MaxAngle="180" />
                 <TextBlock Text="↓ 59% Decrease" Foreground="Red" FontWeight="Bold" Margin="0,5,0,0" />
                 <TextBlock Text="2 hrs 19 minutes Daily Average" Margin="0,5,0,0" />
                 <TextBlock Text="Thu Apr 17th Most Active Day" Margin="0,5,0,0" />
@@ -41,8 +38,7 @@
             <StackPanel Orientation="Vertical" Margin="0,10,0,20">
                 <TextBlock Text="Weekdays"
                            FontWeight="Bold" FontSize="16" Margin="0,0,0,5" />
-                <charts:CartesianChart Width="400" Height="150" Series="{Binding WeekdaySeries}" XAxes="{Binding WeekdayAxes}">
-                </charts:CartesianChart>
+                <charts:CartesianChart Width="400" Height="150" Series="{Binding WeekdaySeries}" XAxes="{Binding WeekdayAxes}" />
             </StackPanel>
 
             <!-- Activity Data -->
@@ -52,4 +48,5 @@
             </StackPanel>
         </StackPanel>
     </DockPanel>
+
 </Window>
