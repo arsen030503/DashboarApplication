@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Threading.Tasks;
 using Npgsql;
 
@@ -20,29 +19,61 @@ namespace DashboardApp
         {
             var activities = new List<Activity>();
 
-            using (var connection = new NpgsqlConnection(_connectionString))
+            try
             {
-                await connection.OpenAsync();
-
-                using (var command = new NpgsqlCommand("SELECT id, date, hours_worked, machine_name FROM activity", connection))
+                using (var connection = new NpgsqlConnection(_connectionString))
                 {
-                    using (var reader = await command.ExecuteReaderAsync())
+                    await connection.OpenAsync();
+
+                    using (var command = new NpgsqlCommand("SELECT id, date, hours_worked, machine_name FROM activity", connection))
                     {
-                        while (await reader.ReadAsync())
+                        using (var reader = await command.ExecuteReaderAsync())
                         {
-                            activities.Add(new Activity
+                            while (await reader.ReadAsync())
                             {
-                                Id = reader.GetInt32(0),
-                                Date = reader.GetDateTime(1),
-                                HoursWorked = reader.GetInt32(2),
-                                MachineName = reader.GetString(3)
-                            });
+                                activities.Add(new Activity
+                                {
+                                    Id = reader.GetInt32(0),
+                                    Date = reader.GetDateTime(1),
+                                    HoursWorked = reader.GetInt32(2),
+                                    MachineName = reader.GetString(3)
+                                });
+                            }
                         }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при получении данных: {ex.Message}");
+            }
 
             return activities;
+        }
+
+        public async Task AddActivityAsync(Activity activity)
+        {
+            try
+            {
+                using (var connection = new NpgsqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    var query = "INSERT INTO activity (date, hours_worked, machine_name) VALUES (@date, @hoursWorked, @machineName)";
+                    using (var command = new NpgsqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("date", activity.Date);
+                        command.Parameters.AddWithValue("hoursWorked", activity.HoursWorked);
+                        command.Parameters.AddWithValue("machineName", activity.MachineName);
+
+                        await command.ExecuteNonQueryAsync();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при добавлении активности: {ex.Message}");
+            }
         }
     }
 
