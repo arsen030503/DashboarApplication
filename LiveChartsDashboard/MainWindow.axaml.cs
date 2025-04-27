@@ -3,55 +3,81 @@ using System.Collections.ObjectModel;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
+using LiveChartsCore.SkiaSharpView.Extensions;
+using LiveChartsCore.Defaults;
 using SkiaSharp;
+using DashboardApp.Models;
 
 namespace DashboardApp
 {
     public partial class MainWindow : Window
     {
-        public ObservableCollection<ISeries> LineSeries { get; set; }
-        public ObservableCollection<ISeries> PieSeries { get; set; }
+        public ObservableCollection<ISeries> OperatingSystemsSeries { get; set; }
+        public ObservableCollection<ISeries> DailyActivitySeries { get; set; }
+        public ObservableCollection<ISeries> WeekdaySeries { get; set; }
+        public ObservableCollection<Axis> WeekdayAxes { get; set; }
+        public ObservableCollection<ISeries> MachineSeries { get; set; } // Added MachineSeries property
 
         public MainWindow()
         {
             InitializeComponent();
 
-            // Линейный график с полной настройкой
-            LineSeries = new ObservableCollection<ISeries>
+            // 1. Круговая диаграмма (правильное объявление)
+            OperatingSystemsSeries = new ObservableCollection<ISeries>
             {
-                new LineSeries<double>
+                new PieSeries<double> // Явно указываем тип double
                 {
-                    Values = new double[] { 3, 5, 7, 9, 4 },
-                    Name = "Данные",
-                    Stroke = new SolidColorPaint(SKColors.Blue) { StrokeThickness = 4 },
-                    Fill = null,
-                    GeometrySize = 10,
-                    GeometryStroke = new SolidColorPaint(SKColors.Blue) { StrokeThickness = 2 }
+                    Values = new double[] { 70 }, // Используем массив double
+                    Name = "Windows",
+                    Fill = new SolidColorPaint(SKColors.Blue)
+                },
+                new PieSeries<double>
+                {
+                    Values = new double[] { 30 },
+                    Name = "Linux",
+                    Fill = new SolidColorPaint(SKColors.Green)
                 }
             };
 
-            // Круговая диаграмма с полной настройкой
-            PieSeries = new ObservableCollection<ISeries>
+            // 2. Линейный датчик (корректная реализация)
+            DailyActivitySeries = new ObservableCollection<ISeries>(
+                GaugeGenerator.BuildSolidGauge(
+                    new GaugeItem(64, series =>
+                    {
+                        series.Name = "Today";
+                        series.Fill = new SolidColorPaint(SKColors.Orange);
+                    })
+                )
+            );
+
+            // 3. Столбчатая диаграмма
+            WeekdaySeries = new ObservableCollection<ISeries>
             {
-                new PieSeries<double> { 
-                    Values = new double[] { 40 },
-                    Name = "Категория 1",
-                    Fill = new SolidColorPaint(SKColors.Red)
-                },
-                new PieSeries<double> { 
-                    Values = new double[] { 30 },
-                    Name = "Категория 2",
-                    Fill = new SolidColorPaint(SKColors.Green)
-                },
-                new PieSeries<double> { 
-                    Values = new double[] { 20 },
-                    Name = "Категория 3",
+                new ColumnSeries<double>
+                {
+                    Values = new double[] { 2, 3, 1, 4, 2, 1, 3 },
+                    Name = "Activity",
                     Fill = new SolidColorPaint(SKColors.Blue)
-                },
-                new PieSeries<double> { 
-                    Values = new double[] { 10 },
-                    Name = "Категория 4",
-                    Fill = new SolidColorPaint(SKColors.Yellow)
+                }
+            };
+
+            // 4. Оси для диаграммы
+            WeekdayAxes = new ObservableCollection<Axis>
+            {
+                new Axis
+                {
+                    Labels = new[] { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" }
+                }
+            };
+
+            // 5. Машины (добавлено)
+            MachineSeries = new ObservableCollection<ISeries>
+            {
+                new PieSeries<double>
+                {
+                    Values = new double[] { 100 },
+                    Name = "bi-n230719-01",
+                    Fill = new SolidColorPaint(SKColors.Blue)
                 }
             };
 
