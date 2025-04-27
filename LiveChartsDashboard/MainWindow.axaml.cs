@@ -1,28 +1,46 @@
 using Avalonia.Controls;
-using System.Collections.ObjectModel;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
-using LiveChartsCore.SkiaSharpView.Extensions;
 using SkiaSharp;
-using LiveChartsDashboard.Models; // Corrected namespace!
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using DashboardApp;
+using Activity = LiveChartsDashboard.Models.Activity;
+using System.Collections.Generic;
+using Avalonia.Interactivity;
 
 namespace LiveChartsDashboard
 {
     public partial class MainWindow : Window
     {
+        // Коллекции для графиков
         public ObservableCollection<ISeries> OperatingSystemsSeries { get; set; }
         public ObservableCollection<ISeries> DailyActivitySeries { get; set; }
         public ObservableCollection<ISeries> WeekdaySeries { get; set; }
         public ObservableCollection<Axis> WeekdayAxes { get; set; }
         public ObservableCollection<ISeries> MachineSeries { get; set; }
-        
+        public ObservableCollection<ISeries> Series { get; set; } = new ObservableCollection<ISeries>();
+        public ObservableCollection<Axis> XAxes { get; set; } = new ObservableCollection<Axis>();
         public ObservableCollection<Activity> Activities { get; set; } = new ObservableCollection<Activity>();
 
         public MainWindow()
         {
             InitializeComponent();
 
+            // Статические графики
+            InitializeStaticCharts();
+
+            // Настройка DataContext
+            DataContext = this;
+
+            // Загрузка данных из базы данных и настройка графиков
+            LoadChartDataAsync();
+        }
+
+        private void InitializeStaticCharts()
+        {
             // Pie chart for operating systems
             OperatingSystemsSeries = new ObservableCollection<ISeries>
             {
@@ -31,15 +49,15 @@ namespace LiveChartsDashboard
             };
 
             // Gauge for daily activity
-            DailyActivitySeries = new ObservableCollection<ISeries>(
-                GaugeGenerator.BuildSolidGauge(
-                    new GaugeItem(64, series =>
-                    {
-                        series.Name = "Today";
-                        series.Fill = new SolidColorPaint(SKColors.Orange);
-                    })
-                )
-            );
+            DailyActivitySeries = new ObservableCollection<ISeries>
+            {
+                new PieSeries<double>
+                {
+                    Values = new double[] { 64 },
+                    Name = "Today",
+                    Fill = new SolidColorPaint(SKColors.Orange)
+                }
+            };
 
             // Column chart for weekday activities
             WeekdaySeries = new ObservableCollection<ISeries>
@@ -67,8 +85,48 @@ namespace LiveChartsDashboard
             Activities.Add(new Activity { Name = "Coding", Hours = 5.0, Category = "Work" });
             Activities.Add(new Activity { Name = "Meeting", Hours = 2.0, Category = "Work" });
             Activities.Add(new Activity { Name = "Gaming", Hours = 1.5, Category = "Leisure" });
+        }
 
-            DataContext = this;
+        private async Task LoadChartDataAsync()
+        {
+            // Получаем данные из базы данных
+            var databaseService = new DatabaseService();
+            var activities = await databaseService.GetActivitiesAsync();
+
+            // Группируем данные по дате и суммируем часы работы
+            var groupedData = activities
+                .GroupBy(a => a.Date.Date)
+                .Select(g => new
+                {
+                    Date = g.Key,
+                    HoursWorked = g.Sum(a => a.HoursWorked)
+                })
+                .OrderBy(g => g.Date)
+                .ToList();
+
+            // Подготавливаем данные для графика
+            IReadOnlyCollection<double>? hoursWorkedValues = groupedData
+                .Select(g => (double)g.HoursWorked) // Explicitly cast to double
+                .ToList();
+            var labels = groupedData.Select(g => g.Date.ToShortDateString()).ToArray();
+
+            // Настройка графика
+            Series.Add(new ColumnSeries<double>
+            {
+                Values = hoursWorkedValues,
+                Name = "Hours Worked"
+            });
+
+            // Настройка оси X с метками (даты)
+            XAxes.Add(new Axis
+            {
+                Labels = labels
+            });
+        }
+
+        private void GetWeatherButton_Click(object? sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

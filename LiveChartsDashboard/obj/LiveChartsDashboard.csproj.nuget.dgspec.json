@@ -48,9 +48,13 @@
               "target": "Package",
               "version": "[11.2.8, )"
             },
+            "Avalonia.Controls.DataGrid": {
+              "target": "Package",
+              "version": "[11.2.8, )"
+            },
             "Avalonia.Desktop": {
               "target": "Package",
-              "version": "[11.2.7, )"
+              "version": "[11.2.8, )"
             },
             "Avalonia.Diagnostics": {
               "target": "Package",
@@ -99,6 +103,10 @@
             "ReactiveUI": {
               "target": "Package",
               "version": "[20.2.45, )"
+            },
+            "System.Net.Http": {
+              "target": "Package",
+              "version": "[4.3.4, )"
             }
           },
           "imports": [
