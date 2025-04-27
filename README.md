@@ -9,3 +9,8 @@
 - Гибкая настройка отображения данных.
 
 ![alt_img](https://github.com/arsen030503/DashboarApplication/blob/ef6b6bd5d680f83c7dc105f2d0a65e77bc414bf7/Screenshot%202025-04-27%20at%2018.46.02.png)
+
+![alt_img](https://github.com/arsen030503/DashboarApplication/blob/ef6b6bd5d680f83c7dc105f2d0a65e77bc414bf7/Screenshot%202025-04-27%20at%2018.46.02.png)
+
+
+
