@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
-using Npgsql;
+using Microsoft.Data.SqlClient;
 
 namespace DashboardApp
 {
@@ -12,7 +13,7 @@ namespace DashboardApp
         public DatabaseService()
         {
             // Замените параметры на ваши данные
-            _connectionString = "Host=localhost;Port=5432;Username=postgres;Password=1337;Database=dashboard_db";
+            _connectionString = "Server=localhost;Database=dashboard_db;User Id=sa;Password=your_password;";
         }
 
         public async Task<List<Activity>> GetActivitiesAsync()
@@ -21,11 +22,11 @@ namespace DashboardApp
 
             try
             {
-                using (var connection = new NpgsqlConnection(_connectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
 
-                    using (var command = new NpgsqlCommand("SELECT id, date, hours_worked, machine_name FROM activity", connection))
+                    using (var command = new SqlCommand("SELECT id, date, hours_worked, machine_name FROM activity", connection))
                     {
                         using (var reader = await command.ExecuteReaderAsync())
                         {
@@ -55,16 +56,16 @@ namespace DashboardApp
         {
             try
             {
-                using (var connection = new NpgsqlConnection(_connectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
 
                     var query = "INSERT INTO activity (date, hours_worked, machine_name) VALUES (@date, @hoursWorked, @machineName)";
-                    using (var command = new NpgsqlCommand(query, connection))
+                    using (var command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("date", activity.Date);
-                        command.Parameters.AddWithValue("hoursWorked", activity.HoursWorked);
-                        command.Parameters.AddWithValue("machineName", activity.MachineName);
+                        command.Parameters.AddWithValue("@date", activity.Date);
+                        command.Parameters.AddWithValue("@hoursWorked", activity.HoursWorked);
+                        command.Parameters.AddWithValue("@machineName", activity.MachineName);
 
                         await command.ExecuteNonQueryAsync();
                     }
@@ -73,6 +74,55 @@ namespace DashboardApp
             catch (Exception ex)
             {
                 Console.WriteLine($"Ошибка при добавлении активности: {ex.Message}");
+            }
+        }
+
+        public async Task UpdateActivityAsync(Activity activity)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    var query = "UPDATE activity SET date = @date, hours_worked = @hoursWorked, machine_name = @machineName WHERE id = @id";
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@id", activity.Id);
+                        command.Parameters.AddWithValue("@date", activity.Date);
+                        command.Parameters.AddWithValue("@hoursWorked", activity.HoursWorked);
+                        command.Parameters.AddWithValue("@machineName", activity.MachineName);
+
+                        await command.ExecuteNonQueryAsync();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при обновлении активности: {ex.Message}");
+            }
+        }
+
+        public async Task DeleteActivityAsync(int activityId)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    var query = "DELETE FROM activity WHERE id = @id";
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@id", activityId);
+
+                        await command.ExecuteNonQueryAsync();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при удалении активности: {ex.Message}");
             }
         }
     }
