@@ -8,5 +8,6 @@
 - Подключение к базе данных (PostgreSQL/SQLite) для хранения и обработки данных.
 - Гибкая настройка отображения данных.
 
+![image_alt](https://github.com/arsen030503/DashboarApplication/blob/fc7859eb55facdec752eb9e979b567ceb2a7aaf3/Screenshot%202025-04-27%20at%2018.22.26.png))
 
 
