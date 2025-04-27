@@ -13,7 +13,7 @@ namespace DashboardApp
         public DatabaseService()
         {
             // Замените параметры на ваши данные
-            _connectionString = "Server=localhost;Database=dashboard_db;User Id=sa;Password=your_password;";
+            _connectionString = "Host=localhost;Database=dashboard_db;Username=postgres;Password=1337;";
         }
 
         public async Task<List<Activity>> GetActivitiesAsync()
@@ -44,9 +44,13 @@ namespace DashboardApp
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                Console.WriteLine($"Ошибка SQL: {ex.Message}");
+            }
             catch (Exception ex)
             {
-                Console.WriteLine($"Ошибка при получении данных: {ex.Message}");
+                Console.WriteLine($"Неизвестная ошибка: {ex.Message}");
             }
 
             return activities;
@@ -71,9 +75,13 @@ namespace DashboardApp
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                Console.WriteLine($"Ошибка SQL при добавлении активности: {ex.Message}");
+            }
             catch (Exception ex)
             {
-                Console.WriteLine($"Ошибка при добавлении активности: {ex.Message}");
+                Console.WriteLine($"Неизвестная ошибка при добавлении активности: {ex.Message}");
             }
         }
 
@@ -97,9 +105,13 @@ namespace DashboardApp
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                Console.WriteLine($"Ошибка SQL при обновлении активности: {ex.Message}");
+            }
             catch (Exception ex)
             {
-                Console.WriteLine($"Ошибка при обновлении активности: {ex.Message}");
+                Console.WriteLine($"Неизвестная ошибка при обновлении активности: {ex.Message}");
             }
         }
 
@@ -120,9 +132,13 @@ namespace DashboardApp
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                Console.WriteLine($"Ошибка SQL при удалении активности: {ex.Message}");
+            }
             catch (Exception ex)
             {
-                Console.WriteLine($"Ошибка при удалении активности: {ex.Message}");
+                Console.WriteLine($"Неизвестная ошибка при удалении активности: {ex.Message}");
             }
         }
     }
@@ -133,5 +149,8 @@ namespace DashboardApp
         public DateTime Date { get; set; }
         public int HoursWorked { get; set; }
         public string MachineName { get; set; }
+        public string Name { get; set; }
+        public double Hours { get; set; }
+        public string Category { get; set; }
     }
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LiveChartsDashboard")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+61529f8f1f3b93c5b9925b99ad31a1a47372a631")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+73e1f40775d4ff3461aff8589ee2db0d46b94aba")]
 [assembly: System.Reflection.AssemblyProductAttribute("LiveChartsDashboard")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LiveChartsDashboard")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

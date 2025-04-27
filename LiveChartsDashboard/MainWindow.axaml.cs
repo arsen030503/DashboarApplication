@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
@@ -7,9 +8,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using DashboardApp;
-using Activity = LiveChartsDashboard.Models.Activity;
+using LiveChartsDashboard.Models;
 using System.Collections.Generic;
-using Avalonia.Interactivity;
+using LiveChartsDashboard.Services;
+using Activity = DashboardApp.Activity;
 
 namespace LiveChartsDashboard
 {
@@ -25,9 +27,15 @@ namespace LiveChartsDashboard
         public ObservableCollection<Axis> XAxes { get; set; } = new ObservableCollection<Axis>();
         public ObservableCollection<Activity> Activities { get; set; } = new ObservableCollection<Activity>();
 
+        // Сервис для работы с погодным API
+        private readonly WeatherService _weatherService;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            // Инициализация WeatherService
+            _weatherService = new WeatherService();
 
             // Статические графики
             InitializeStaticCharts();
@@ -124,9 +132,53 @@ namespace LiveChartsDashboard
             });
         }
 
-        private void GetWeatherButton_Click(object? sender, RoutedEventArgs e)
+        // Метод для обработки кнопки получения погоды
+        private async void GetWeatherButton_Click(object? sender, RoutedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            var city = CityInput.Text;
+
+            if (string.IsNullOrWhiteSpace(city))
+            {
+                await ShowMessageAsync("Error", "Please enter a city name.");
+                return;
+            }
+
+            await LoadWeatherDataAsync(city);
+        }
+
+        private async Task LoadWeatherDataAsync(string city)
+        {
+            try
+            {
+                var weather = await _weatherService.GetWeatherAsync(city);
+
+                // Отображение данных в интерфейсе
+                CityName.Text = $"City: {weather.Name}";
+                Temperature.Text = $"Temperature: {weather.Main.Temp} °C";
+                Pressure.Text = $"Pressure: {weather.Main.Pressure} hPa";
+                Humidity.Text = $"Humidity: {weather.Main.Humidity}%";
+            }
+            catch
+            {
+                await ShowMessageAsync("Error", "Failed to fetch weather data. Please check the city name or try again later.");
+            }
+        }
+
+        private async Task ShowMessageAsync(string title, string message)
+        {
+            var dialog = new Window
+            {
+                Content = new TextBlock
+                {
+                    Text = message,
+                    Margin = new Avalonia.Thickness(10)
+                },
+                Width = 300,
+                Height = 150,
+                Title = title
+            };
+
+            await dialog.ShowDialog(this);
         }
     }
 }
